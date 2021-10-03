@@ -10,7 +10,7 @@ LANGUAGE = "en"
 
 def messages(message, lang="en")
   MESSAGES[lang][message]
-end 
+end
 
 def prompt(message)
   puts "=> #{message}"
@@ -18,7 +18,7 @@ end
 
 def number?(input)
   integer?(input) || float?(input)
-end 
+end
 
 def integer?(input)
   input.to_i.to_s == input
@@ -26,7 +26,7 @@ end
 
 def float?(input)
   input.to_f.to_s == input
-end 
+end
 
 def operation_to_message(op)
   case op
@@ -115,7 +115,7 @@ loop do # main loop
            when "4"
              num1.to_f / num2.to_f
            end
-           
+
   prompt("The result is #{result}")
 
   prompt(messages("another_calculation"))
