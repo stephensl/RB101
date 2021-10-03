@@ -1,0 +1,22 @@
+# calculator.rb configuration file with language options
+
+
+en:
+  welcome: "Welcome to Calculator! Enter your name:"
+  valid_name: "You didn't enter a valid name..try again."
+  request_first_number: "Enter a number:"
+  request_second_number: "Enter another number:"
+  valid_number: "Not a valid number"
+  valid_operator: "Must choose 1, 2, 3 or 4"
+  another_calculation: "Do you want to perform another calculation? (Y to go again)"
+  thanks: "Thank you for using calculator!"
+  
+es:
+  welcome: "¡Bienvenido a Calculadora! Introduzca su nombre:"
+  valid_name: "Asegúrate de usar un nombre válido."
+  request_first_number: "¿Cuál es el primer número?"
+  request_second_number: "¿Cuál es el segundo número?"
+  valid_number: "Esto no parece un número válido"
+  valid_operator: "Debe elegir 1, 2, 3 o 4"
+  another_calculation: "¿Quieres realizar otro cálculo? ('y' para continuar)"
+  thanks: "Gracias por usar la calculadora. ¡Adiós!"
