@@ -6,9 +6,16 @@ en:
   valid_name: "You didn't enter a valid name..try again."
   request_first_number: "Enter a number:"
   request_second_number: "Enter another number:"
-  valid_number: "Not a valid number"
+  valid_number: "Not a valid number" 
+  operator_prompt: |
+    Which operation would you like to perform?
+    1) add
+    2) subtract
+    3) multiply
+    4) divide
   valid_operator: "Must choose 1, 2, 3 or 4"
-  another_calculation: "Do you want to perform another calculation? (Y to go again)"
+  again_error: "Invalid entry, please enter 'yes' to go again or 'no' to exit"
+  another_calculation: "Would you like to perform another calculation? ('yes' or 'no')"
   thanks: "Thank you for using calculator!"
   
 es:
