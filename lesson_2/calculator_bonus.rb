@@ -20,10 +20,10 @@ end
 
 def retrieve_name(name)
   loop do
-  name = gets.chomp
+    name = gets.chomp
 
-  break unless name.empty?
-  prompt(messages("valid_name"))
+    break unless name.empty?
+    prompt(messages("valid_name"))
   end
   name
 end
@@ -106,33 +106,32 @@ def calculation(operator, num1, num2)
            when "3"
              num1.to_f * num2.to_f
            when "4"
-             if num1.to_f == 0 || num2.to_f ==0
+             if num1.to_f == 0 || num2.to_f == 0
                "undefined as a result of zero division"
              else
-             num1.to_f / num2.to_f
+               num1.to_f / num2.to_f
              end
            end
   result
-end 
+end
 
 def calculate_again?
   answer = ""
   go_again = nil
-  loop do 
+  loop do
     answer = gets.chomp
     if answer.downcase == "y" || answer.downcase == "yes"
-      go_again = true 
+      go_again = true
       break
     elsif answer.downcase == "n" || answer.downcase == "no"
       go_again = false
-      break 
-    else 
+      break
+    else
       prompt(messages("again_error"))
-    end 
-  end 
-    go_again
-end 
-          
+    end
+  end
+  go_again
+end
 
 # Begin program
 
@@ -147,25 +146,25 @@ prompt("Hi #{name}!")
 loop do # main loop
   num1 = get_first_number
   num2 = get_second_number
-  
+
   system("clear")
 
   prompt(messages("operator_prompt"))
   operator = operator_choice
-  
+
   system("clear")
 
   prompt("#{operation_to_message(operator)} the two numbers...")
 
   result = calculation(operator, num1, num2)
-           
+
   prompt("The result is #{result}")
 
   prompt(messages("another_calculation"))
-  
+
   break unless calculate_again?
-end 
-  
+end
+
 system("clear")
 
 prompt(messages("thanks"))
