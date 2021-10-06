@@ -4,9 +4,11 @@
 # output the result
 
 require "yaml"
+require "pry"
 MESSAGES = YAML.load_file("calculator_messages.yml")
-
 LANGUAGE = "en"
+
+# Method Definitions
 
 def messages(message, lang="en")
   MESSAGES[lang][message]
@@ -14,6 +16,46 @@ end
 
 def prompt(message)
   puts "=> #{message}"
+end
+
+def retrieve_name(name)
+  loop do
+  name = gets.chomp
+
+  break unless name.empty?
+  prompt(messages("valid_name"))
+  end
+  name
+end
+
+def get_first_number
+  num1 = nil
+  loop do
+    prompt(messages("request_first_number"))
+    num1 = gets.chomp
+
+    if number?(num1)
+      break
+    else
+      prompt(messages("valid_number"))
+    end
+  end
+  num1
+end
+
+def get_second_number
+  num2 = nil
+  loop do
+    prompt(messages("request_second_number"))
+    num2 = gets.chomp
+
+    if number?(num2)
+      break
+    else
+      prompt(messages("valid_number"))
+    end
+  end
+  num2
 end
 
 def number?(input)
@@ -26,6 +68,20 @@ end
 
 def float?(input)
   input.to_f.to_s == input
+end
+
+def operator_choice
+  operator = nil
+  loop do
+    operator = gets.chomp
+
+    if %w(1 2 3 4).include?(operator)
+      break
+    else
+      prompt(messages("valid_operator"))
+    end
+  end
+  operator
 end
 
 def operation_to_message(op)
@@ -41,70 +97,7 @@ def operation_to_message(op)
   end
 end
 
-prompt(messages("welcome", LANGUAGE))
-
-name = nil
-loop do
-  name = gets.chomp
-
-  if name.empty?
-    prompt(messages("valid_name"))
-  else
-    break
-  end
-end
-
-prompt("Hi #{name}!")
-
-loop do # main loop
-  num1 = nil
-  loop do
-    prompt(messages("request_first_number"))
-    num1 = gets.chomp
-
-    if number?(num1)
-      break
-    else
-      prompt(messages("valid_number"))
-    end
-  end
-
-  num2 = nil
-  loop do
-    prompt(messages("request_second_number"))
-    num2 = gets.chomp
-
-    if number?(num2)
-      break
-    else
-      prompt("valid_number")
-    end
-  end
-
-  operator_prompt = <<-MSG
-    What operation would you like to perform?
-    1) add
-    2) subtract
-    3) multiply
-    4) divide
-
-  MSG
-
-  prompt(operator_prompt)
-
-  operator = nil
-  loop do
-    operator = gets.chomp
-
-    if %w(1 2 3 4).include?(operator)
-      break
-    else
-      prompt(messages("valid_operator"))
-    end
-  end
-
-  prompt("#{operation_to_message(operator)} the two numbers...")
-
+def calculation(operator, num1, num2)
   result = case operator
            when "1"
              num1.to_f + num2.to_f
@@ -113,14 +106,66 @@ loop do # main loop
            when "3"
              num1.to_f * num2.to_f
            when "4"
+             if num1.to_f == 0 || num2.to_f ==0
+               "undefined as a result of zero division"
+             else
              num1.to_f / num2.to_f
+             end
            end
+  result
+end 
 
+def calculate_again?
+  answer = ""
+  go_again = nil
+  loop do 
+    answer = gets.chomp
+    if answer.downcase == "y" || answer.downcase == "yes"
+      go_again = true 
+      break
+    elsif answer.downcase == "n" || answer.downcase == "no"
+      go_again = false
+      break 
+    else 
+      prompt(messages("again_error"))
+    end 
+  end 
+    go_again
+end 
+          
+
+# Begin program
+
+prompt(messages("welcome"))
+
+name = retrieve_name(name)
+
+system("clear")
+
+prompt("Hi #{name}!")
+
+loop do # main loop
+  num1 = get_first_number
+  num2 = get_second_number
+  
+  system("clear")
+
+  prompt(messages("operator_prompt"))
+  operator = operator_choice
+  
+  system("clear")
+
+  prompt("#{operation_to_message(operator)} the two numbers...")
+
+  result = calculation(operator, num1, num2)
+           
   prompt("The result is #{result}")
 
   prompt(messages("another_calculation"))
-  answer = gets.chomp
-  break unless answer.downcase.start_with?("y")
-end
+  
+  break unless calculate_again?
+end 
+  
+system("clear")
 
 prompt(messages("thanks"))
