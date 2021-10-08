@@ -34,6 +34,7 @@ def prompt(string)
 end
 
 def retrieve_name(name)
+  name = ""
   loop do
     name = gets.chomp
     break unless name.empty?
@@ -43,24 +44,28 @@ def retrieve_name(name)
 end
 
 def integer?(input)
-  input.to_i.to_s == input
+  input.to_i.to_s == input #&& input.to_i > 0
 end
 
 def float?(input)
-  input.to_f.to_s == input
+  input.to_f.to_s == input #&& input.to_f > 0
 end
 
 def number?(input)
   integer?(input) || float?(input)
 end
 
+def pos_nonzero?(input)
+  input.to_f > 0
+end 
+
 def get_principal
   principal = nil
   prompt(messages("loan_amt"))
-
+  
   loop do
     principal = gets.chomp
-    if number?(principal)
+    if number?(principal) && pos_nonzero?(principal)
       break
     else
       prompt(messages("invalid_loan"))
@@ -110,21 +115,21 @@ def calculate_payment(principal, monthly_rate, term)
 end
 
 def output_result(principal, apr, term, monthly_payment)
-  prompt "You are borrowing #{principal}"
+  prompt "You are borrowing $#{format('%.2f', principal)}"
   prompt "Your annual interest rate is #{apr}"
   prompt "You have #{term} months to repay this loan"
-  prompt "Your monthly payment will be #{monthly_payment}"
+  prompt "Your monthly payment will be $#{format('%.2f', monthly_payment)}"
 end
 
 def go_again
   answer = ""
   go_again = nil
   loop do
-    answer = gets.chomp
-    if answer.downcase == "y" || answer.downcase == "yes"
+    answer = gets.chomp.downcase
+    if answer == "y" || answer == "yes"
       go_again = true
       break
-    elsif answer.downcase == "n" || answer.downcase == "no"
+    elsif answer == "n" || answer == "no"
       go_again = false
       break
     else
@@ -153,7 +158,6 @@ system("clear")
 prompt("Hi, #{name}!")
 
 loop do # Main Loop
-  system("clear")
   principal = get_principal
 
   term = get_duration
@@ -176,6 +180,7 @@ loop do # Main Loop
   prompt(messages("another_calculation"))
 
   break unless go_again
+  system("clear")
 end
 
 system("clear")
