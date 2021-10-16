@@ -42,7 +42,7 @@ WINNING_COMBOS = { "1" => { defeats: ["3", "4"] },
                    "4" => { defeats: ["5", "2"] },
                    "5" => { defeats: ["3", "1"] } }
 
-# MEthod Definitions
+# Method Definitions
 
 def separator
   puts "------------------
