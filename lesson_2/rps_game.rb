@@ -30,17 +30,13 @@ require "yaml"
 require "pry"
 MESSAGES = YAML.load_file("rps_messages.yml")
 
-VALID_CHOICES = { "1" => "Rock",
-                  "2" => "Paper",
-                  "3" => "Scissors",
-                  "4" => "Lizard",
-                  "5" => "Spock" }
-
-WINNING_COMBOS = { "1" => { defeats: ["3", "4"] },
-                   "2" => { defeats: ["1", "5"] },
-                   "3" => { defeats: ["2", "4"] },
-                   "4" => { defeats: ["5", "2"] },
-                   "5" => { defeats: ["3", "1"] } }
+VALID_CHOICES = { 
+                  "1" => { word: "Rock", beats: ["3", "4"] },
+                  "2" => { word: "Paper", beats: ["1", "5"] },
+                  "3" => { word: "Scissors", beats: ["2", "4"] },
+                  "4" => { word: "Lizard", beats: ["5", "2"] },
+                  "5" => { word: "Spock", beats: ["3", "1"] }
+}
 
 # Method Definitions
 
@@ -99,55 +95,65 @@ def computer_choice
   VALID_CHOICES.keys.to_a.sample
 end
 
-def plyr_choice_to_word(choice)
-  VALID_CHOICES[choice]
-end
-
-def comp_choice_to_word(comp_choice)
-  VALID_CHOICES[comp_choice]
+def choice_to_word(chosen)
+  VALID_CHOICES[chosen][:word]
 end
 
 def display_choices(name, player_weapon, computer_weapon)
   prompt("#{name} chose #{player_weapon}")
-  sleep(1)
   prompt("Computer chose #{computer_weapon}")
-  sleep(1)
+  prompt("Press 'ENTER' to see who wins!")
+  gets
 end
 
-def win?(first, second)
-  WINNING_COMBOS[first][:defeats].include?(second)
+def first_beats_second(first, second)
+  VALID_CHOICES[first][:beats].include?(second)
 end
 
 def display_winner(player, computer)
-  if win?(player, computer)
+  if first_beats_second(player, computer)
     prompt("You win!")
-  elsif win?(computer, player)
+  elsif first_beats_second(computer, player)
     prompt("Computer wins!")
   else
     prompt("It's a tie!")
   end
+  prompt("Press 'ENTER' to move on to continue.")
+  gets
+end
+
+def draw?(player, computer)
+  !first_beats_second(player, computer) && !first_beats_second(computer, player)
 end
 
 def get_winner(player, computer)
-  if win?(player, computer)
+  if first_beats_second(player, computer)
     :player
-  elsif win?(computer, player)
+  elsif first_beats_second(computer, player)
     :computer
+  elsif draw?(player, computer)
+    :draw
   end
 end
 
-def increment_score(winner, overall_score)
+def increment_scoreboard(winner, overall_score)
   if winner == :player
     overall_score[:player] += 1
   elsif winner == :computer
     overall_score[:computer] += 1
+  elsif winner == :draw
+    overall_score[:draw] += 1
   end
+  overall_score[:current_round] += 1
 end
 
-def display_score(player, computer)
+def display_score(player, computer, draw, current_round)
   prompt("**SCOREBOARD**")
   prompt("You: #{player}")
   prompt("Computer: #{computer}")
+  prompt("Draws: #{draw}")
+  prompt("Current Round: #{current_round}")
+  prompt("Remember, first to 3 wins is crowned Champion!")
 end
 
 def crown_champ(overall_score)
@@ -200,12 +206,19 @@ clear_screen
 # Gameplay Loop
 
 loop do
-  overall_score = { player: 0, computer: 0 }
+  clear_screen
+
+  overall_score = { player: 0, computer: 0, draw: 0, current_round: 1 }
 
   while overall_score[:player] < 3 && overall_score[:computer] < 3
     separator
 
-    display_score(overall_score[:player], overall_score[:computer])
+    display_score(
+      overall_score[:player],
+      overall_score[:computer],
+      overall_score[:draw],
+      overall_score[:current_round]
+    )
 
     separator
 
@@ -215,39 +228,49 @@ loop do
 
     comp_choice = computer_choice
 
-    player_weapon = plyr_choice_to_word(choice)
+    player_weapon = choice_to_word(choice)
 
-    computer_weapon = comp_choice_to_word(comp_choice)
+    computer_weapon = choice_to_word(comp_choice)
 
     clear_screen
 
     display_choices(name, player_weapon, computer_weapon)
-    sleep(1)
+
+    clear_screen
 
     display_winner(choice, comp_choice)
-    sleep(2)
+
     clear_screen
 
     winner = get_winner(choice, comp_choice)
 
-    increment_score(winner, overall_score)
+    increment_scoreboard(winner, overall_score)
 
     separator
-    display_score(overall_score[:player], overall_score[:computer])
+    display_score(
+      overall_score[:player],
+      overall_score[:computer],
+      overall_score[:draw],
+      overall_score[:current_round]
+    )
     separator
 
     clear_screen
 
     crown_champ(overall_score)
-
   end
 
-  sleep(3)
+  prompt("Press 'ENTER' to see the final results.")
+  gets
 
   separator
-  display_score(overall_score[:player], overall_score[:computer])
+  display_score(
+    overall_score[:player],
+    overall_score[:computer],
+    overall_score[:draw],
+    overall_score[:current_round]
+  )
   separator
-  sleep(2)
 
   prompt(messages("replay"))
 
