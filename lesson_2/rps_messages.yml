@@ -1,0 +1,36 @@
+welcome: "Welcome to Rock, Paper, Scissors, Lizard, Spock!"
+get_name: "Please enter your name."
+invalid_name: "Invalid input..Please enter valid name."
+review_rules: "Would you like to review the rules before we start? (yes/no)"
+display_rules: |
+  Here's how it works: 
+                          => 1. You will select your weapon for battle: rock, paper, scissors, lizard or spock. 
+                          => 2. The computer chooses a weapon. 
+                          => 3. Epic battle ensues...
+                          => 4. Only one emerges victorious. 
+                          => 5. The first player to reach three victories is crowned 'Champion!'
+    
+  => Winning Combinations:
+                          => Rock     >   Scissors & Lizard
+                          => Paper    >   Rock & Spock
+                          => Scissors >   Paper & Lizard
+                          => Lizard   >   Paper & Spock
+                          => Spock    >   Scissors & Rock
+    
+no_rules: "Sounds like you already know the rules, let's get started!"
+continue: "Press 'ENTER' to continue"
+weapon_options: |
+  Please select your weapon from the following options: 
+  
+  => Enter 1, 2, 3, 4 or 5: 
+                            1. Rock
+                            2. Paper
+                            3. Scissors
+                            4. Lizard
+                            5. Spock 
+invalid_choice: "Invalid choice. Please enter 1, 2, 3, 4, or 5"
+congrats: "Congratulations! You are the Champion!"
+shucks: "Aww shucks..Computer is the Champion. You'll get 'em next time."
+replay: "That was fun.. do you want to play again? (yes/no)" 
+again_error: "Invalid entry, please enter 'yes' to go again or 'no' to exit"
+goodbye: "Thanks for playing!"

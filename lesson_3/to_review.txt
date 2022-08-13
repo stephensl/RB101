@@ -1,0 +1,12 @@
+
+
+Medium_1 
+  3. Refactor program to fix input of edge cases in factor program. 
+
+
+Medium_2
+  1. Object_id tracking throughout program in block.
+  2. Object_id tracking throughout program in method call. 
+  
+Hard
+  4. IP address refactoring code. 

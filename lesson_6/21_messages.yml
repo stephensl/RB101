@@ -1,0 +1,57 @@
+
+rules: | 
+
+  - Objective: 
+              - Acheive hand value as close as possible to 21 without going over. 
+              - First to achieve 5 wins is champion.
+
+  - Card Values: 
+              - 2-10: values equal to card (ex. 3 of clubs..value equals 3)
+              - Jack, Queen, King: value is 10
+              - Ace: value can be 11 or 1 (whichever helps hand get closest to 21 without going over)
+
+  - Game Play: 
+            Initial Deal
+              - Player and Dealer are each dealt two cards.
+              - Player is able to see own hand, and one of dealer's two cards. 
+            
+            Player Turn
+              - Based on hand total value, player can choose:  
+                1). "Stay" (keep current hand, and receive no additional cards).
+                2). "Hit" (receive additional card).
+              - Player can continue to "hit" until choosing to "stay" or exceeding hand value of 21 (bust).
+              - If player goes over 21 (bust), dealer wins round. 
+              - If player does not bust, and decides to stay, move to dealer turn.
+            
+            Dealer Turn
+              - Dealer cards revealed.
+              - Dealer decides to "stay" or "hit" based on hand value.
+                - Dealer required to 'hit' if hand value < 17.
+                - Dealer required to 'stay' if hand value >= 17 
+              - If dealer does not bust, and decides to "stay", cards are compared. 
+            
+            Compare Cards: 
+              - Player hand and dealer hand are compared. 
+              - Winner of round has hand closest to 21, without going over. 
+
+            Good luck!
+
+review_rules?: "Would you like to review the rules of the game? (y or n)"
+enter_to_start: "Press 'enter' to start game."
+invalid_entry: "Invalid entry. (please enter y or n)"
+player_bust: "You busted. Dealer wins!"
+dealer_bust: "Dealer busted. You win!"
+player_win: "You win!"
+dealer_win: "Dealer wins!"
+draw: "It's a draw!"
+next_round?: "Do you want to go to the next round? (y or n)"
+new_game?: "Would you like to start a new game? (y or n)"
+dealing_cards: "Dealing cards..."
+hit_or_stay?: "Would you like to (h)it or (s)tay?"
+hit_stay_error: "Sorry, must enter '(h)it' or '(s)tay'."
+hit_choice: "You chose to hit!"
+dealer_turn: "Dealer's turn..."
+final_score: "**FINAL SCORE**"
+thanks: "Thanks for playing Twenty-One!"
+            
+

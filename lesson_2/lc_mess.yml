@@ -1,0 +1,14 @@
+#Loan Calc Messages
+
+
+request_loan_amount: |
+  Please enter desired loan amount:
+      ** Example => For a loan of $10,000...ENTER 10000
+request_apr: |
+  Please enter Annual Percentage Rate:
+      ** Example => For an APR of 5%...ENTER 5 
+request_duration: "Please enter loan term in years:"
+invalid: "Invalid entry"
+again: "Would you like to perform another calculation?"
+
+

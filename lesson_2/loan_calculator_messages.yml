@@ -1,0 +1,19 @@
+# loan_calculator.rb messages .yml file
+
+welcome: "Welcome to Loan Calculator!"
+first: "First we need to collect a few pieces of information:"
+get_name: "Please enter your name:"
+valid_name: "Hmm.. looks like you didn't enter a valid name, please try again."
+loan_amt: "Please enter the total loan amount..example: if loan amount is $10,000, enter 10000"
+invalid_loan:  |
+    Invalid entry: Loan amount must be whole numbers greater than zero..examples:
+      :if loan amt is $10,000.. enter 10000
+      :if loan amount is $125,500..enter 125500
+get_duration: "Please enter the duration of loan in MONTHS..for example: if loan term is 5 years enter 60"
+invalid_duration: "Invalid loan duration.. please enter number of MONTHS in loan term"
+get_apr: "Please enter APR..for example: if APR is 5.3%, enter 5.3"
+invalid_apr: "Invalid entry.. please enter APR.. for example: if APR is 5.3%, enter 5.3"
+calculating: "Thank you for the information, we are calculating your monthly payment"
+another_calculation: "Would you like to perform another calculation? ('yes' or 'no')"
+again_error: "Invalid entry, please enter 'yes' to go again or 'no' to exit"
+thanks: "Thank you for using the Loan Calculator..remember to borrow responsibly. Take care!"
